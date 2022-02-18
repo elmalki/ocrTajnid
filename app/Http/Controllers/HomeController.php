@@ -37,7 +37,10 @@ class HomeController extends Controller
     {
         $ocr = new TesseractOCR();
         $ocr->image($request->file('fichier')->getPathName());
-        return $ocr->run();
+        $text = $ocr->run();
+        $matches = [];
+        preg_match('/(SM[R|V]\d{9})/', $text, $matches);
+        dd($matches);
         return $request->file('fichier')->getPathName();
     }
 
